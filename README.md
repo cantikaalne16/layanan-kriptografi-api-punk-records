@@ -15,6 +15,7 @@
 ### Tahapan:
 1. CLIENT SIDE (client.py)
    ├─ Generate Ed25519 key pairs
+
    │  ├─ sofia079_priv.pem (private key - RAHASIA)
    │  ├─ sofia079.pem (public key - PUSH ke server)
    │  ├─ penerima_priv.pem (private key - RAHASIA)
@@ -30,7 +31,7 @@
    └─ Encrypt PDF dengan AES-256
       └─ Output: encrypted.pdf
 
-2. UPLOAD KE SERVER (api.py)
+3. UPLOAD KE SERVER (api.py)
    ├─ Step 1: Login
    │  ├─ username: sofia079
    │  ├─ password: password123
@@ -63,7 +64,7 @@
          ├─ Check kedua user terdaftar
          └─ Save log ke: data/relay_log.txt
 
-3. OUTPUT & STORAGE
+4. OUTPUT & STORAGE
    └─ Server files:
       ├─ punkhazard-keys/
       │  ├─ sofia079.pem (public key)
