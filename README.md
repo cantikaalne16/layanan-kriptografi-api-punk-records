@@ -38,4 +38,24 @@ Fungsi utama yang ditangani oleh api.py meliputi:
 Server menggunakan mekanisme secure session, di mana setiap endpoint sensitif hanya dapat diakses oleh pengguna yang telah terautentikasi dan memiliki token JWT yang valid.
 
 ------------------------------------------------------------------------------
-## Penjelasan
+## Penjelasan client.py
+File client.py berfungsi sebagai sisi klien dalam sistem Punk Records-v1. File ini digunakan untuk:
+1. Membuat pasangan kunci public–private menggunakan Ed25519
+2. Membuat tanda tangan digital pada pesan atau file PDF
+3. Melakukan enkripsi file PDF menggunakan AES-256 (Fernet) sebelum dikirim ke server
+File ini mensimulasikan peran pengguna dalam sistem pertukaran data yang aman.
+
+------------------------------------------------------------------------------
+## Penjelasan main.py
+File main.py merupakan entry point untuk menjalankan server FastAPI yang didefinisikan pada api.py. Server dijalankan menggunakan Uvicorn sebagai ASGI server sehingga API dapat diakses melalui browser maupun Swagger UI.
+
+------------------------------------------------------------------------------
+## Penjelasan pyproject.toml 
+File pyproject.toml berisi konfigurasi proyek Python dan daftar dependensi yang dibutuhkan, yaitu FastAPI, cryptography, PyJWT, uvicorn.
+File ini memastikan proyek dijalankan dengan lingkungan yang konsisten sesuai dengan spesifikasi tugas.
+
+------------------------------------------------------------------------------
+## Penjelasan uv.lock
+File uv.lock merupakan file dependency lock yang dihasilkan secara otomatis oleh tool uv. File ini menyimpan versi pasti dari seluruh library yang digunakan sehingga mencegah perbedaan versi dependency antar environment. File ini tidak perlu diedit secara manual.
+
+------------------------------------------------------------------------------
