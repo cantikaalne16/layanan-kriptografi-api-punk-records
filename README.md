@@ -16,47 +16,69 @@
 
 ```text
 1. CLIENT SIDE (client.py)
-   - Generate Ed25519 key pairs
-     - sofia079_priv.pem (private key – RAHASIA)
-     - sofia079.pem (public key – dikirim ke server)
-     - penerima_priv.pem (private key – RAHASIA)
-     - penerima.pem (public key – dikirim ke server)
+   ├─ Generate Ed25519 key pairs
 
-   - Signing
-     - Sign message menggunakan private key
-     - Output: signature (hex)
-     - Hash PDF menggunakan SHA-256
-     - Sign hash PDF dengan private key
+   │  ├─ sofia079_priv.pem (private key - RAHASIA)
+   │  ├─ sofia079.pem (public key - PUSH ke server)
+   │  ├─ penerima_priv.pem (private key - RAHASIA)
+   │  └─ penerima.pem (public key - PUSH ke server)
+   │
+   ├─ Sign message dengan private key
+   │  └─ Output: signature (hex format)
+   │
+   ├─ Sign PDF hash
+   │  ├─ Hash PDF dengan SHA256
+   │  └─ Sign hash dengan private key
+   │
+   └─ Encrypt PDF dengan AES-256
+      └─ Output: encrypted.pdf
 
-   - Enkripsi
-     - Encrypt PDF menggunakan AES-256
-     - Output: encrypted.pdf
+3. UPLOAD KE SERVER (api.py)
+   ├─ Step 1: Login
+   │  ├─ username: sofia079
+   │  ├─ password: password123
+   │  └─ Response: access_token (JWT)
+   │
+   ├─ Step 2: Store Public Key
+   │  ├─ Upload sofia079.pem ke /store endpoint
+   │  └─ Server save di: punkhazard-keys/sofia079.pem
+   │
+   ├─ Step 3: Upload PDF
+   │  ├─ POST ke /upload-pdf
+   │  ├─ Data:
+   │  │  ├─ username: sofia079
+   │  │  ├─ signature: (dari client.py output)
+   │  │  └─ file: soaluaskid.pdf
+   │  └─ Server:
+   │     ├─ Verify signature dengan public key
+   │     ├─ Check integritas file
+   │     └─ Save ke: uploads/soaluaskid.pdf
+   │
+   └─ Step 4: Relay Message (Optional)
+      ├─ POST ke /relay
+      ├─ Data:
+      │  ├─ sender: sofia079
+      │  ├─ receiver: penerima
+      │  ├─ message: (pesan apapun)
+      │  └─ signature: (sign message dengan private key)
+      └─ Server:
+         ├─ Verify signature
+         ├─ Check kedua user terdaftar
+         └─ Save log ke: data/relay_log.txt
 
-2. UPLOAD KE SERVER (api.py)
-   - Login
-     - Username dan password
-     - Server mengembalikan JWT
-
-   - Store Public Key
-     - Upload public key ke endpoint /store
-     - Disimpan di punkhazard-keys/
-
-   - Upload PDF
-     - POST ke /upload-pdf
-     - Server memverifikasi signature
-     - Server menyimpan file ke folder uploads/
-
-   - Relay Message (opsional)
-     - POST ke /relay
-     - Server memverifikasi signature
-     - Log disimpan di data/relay_log.txt
-
-3. OUTPUT & STORAGE
-   - punkhazard-keys/
-   - uploads/
-   - data/
-yaml
-Copy code
+4. OUTPUT & STORAGE
+   └─ Server files:
+      ├─ punkhazard-keys/
+      │  ├─ sofia079.pem (public key)
+      │  └─ penerima.pem (public key)
+      ├─ uploads/
+      │  ├─ soaluaskid.pdf (file yang diupload)
+      │  └─ (file lain yang diupload)
+      └─ data/
+         ├─ relay_log.txt (log relay pesan)
+         ├─ messages.txt (data pesan)
+         └─ pubkeys.txt (data public keys)
+``` 
 
 ------------------------------------------------------------------------------
 ## Punk Records-v1
