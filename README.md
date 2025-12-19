@@ -1,6 +1,6 @@
 # IMPLEMENTASI KRIPTOGRAFI MENGGUNAKAN AES-256, ED25519, SHA-256, & HS256 PADA LAYANAN PUNK RECORDS BERBASIS FASTAPI
 ## Ujian Akhir Semester Mata Kuliah Keamanan dan Integritas Data
-## Sains Data - Universitas Negeri Surabaya
+## Sains Data - Universitas Negeri Surabaya (UNESA)
 ------------------------------------------------------------------------------
 #### Dosen Pengampu: 
 ##### 1. Hasanuddin Al-Habib, M.Si.
